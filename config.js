@@ -132,38 +132,36 @@ function genColors(startingPoint, n) {
     return $.map(analogous, function(e) {return e.toHexString();}); //Returns a list of hex strings
 }
 
-$(document).ready(function(){
-  var h = $(window).height();
-  var w = $(window).width() * 0.4;
-
-  //Set color
-  var tiny = tinycolor({r: 255, g: 102, b: 0});
-
+function genFormats(startingPoint){
+  tiny = tinycolor(startingPoint);
   var output = [
-            "hex:\t" + tiny.toHexString(),
-            "hex8:\t" + tiny.toHex8String(),
-            "rgb:\t" + tiny.toRgbString(),
-            "hsl:\t" + tiny.toHslString(),
-            "hsv:\t" + tiny.toHsvString(),
+    "hex:\t" + tiny.toHexString(),
+    "hex8:\t" + tiny.toHex8String(),
+    "rgb:\t" + tiny.toRgbString(),
+    "hsl:\t" + tiny.toHslString(),
+    "hsv:\t" + tiny.toHsvString(),
   ].join('\n');
+  return output;
+}
 
-  $("#code-output").text(output).css("background-color", tiny.toHexString());
+$(document).ready(function(){
+  // var h = $(window).height();
+  // var w = $(window).width() * 0.4;
+
+  var color = {r: 255, g: 102, b: 0};
+  var tiny = tinycolor(color);
+  $("#code-output").text(genFormats(tiny)).css("background-color", tiny.toHexString());
 
   Raphael.colorwheel(
     $("#colorWheel")[0],300).color("#FF6600").onchange(
         function(c){
-          tiny = tinycolor(c);
-          output = [
-            "hex:\t" + tiny.toHexString(),
-            "hex8:\t" + tiny.toHex8String(),
-            "rgb:\t" + tiny.toRgbString(),
-            "hsl:\t" + tiny.toHslString(),
-            "hsv:\t" + tiny.toHsvString(),
-          ].join('\n');
-          $("#code-output").text(output).css("background-color", tiny.toHexString());
-
-          redraw_Pie(genColors(c.hex, 10));
+          color = c;
+          $("#code-output").text(genFormats(color)).css("background-color", tiny.toHexString());
+          redraw_Pie(genColors(color.hex, 10));
     });
-
+    $("#spliceN").on('keyup change click', function () {
+      $("#code-output").text(genFormats(color)).css("background-color", tiny.toHexString());
+          redraw_Pie(genColors(color.hex, $(this).val()));
+    });
 });
 
