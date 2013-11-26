@@ -1,70 +1,12 @@
-// function colorChange(color) {
-//     // console.log(color);
-//     var tiny = tinycolor(color);
-
-//     var output = [
-//             "hex:\t" + tiny.toHexString(),
-//             "hex8:\t" + tiny.toHex8String(),
-//             "rgb:\t" + tiny.toRgbString(),
-//             "hsl:\t" + tiny.toHslString(),
-//             "hsv:\t" + tiny.toHsvString(),
-//     ].join("\n");
-
-//     $("#code-output").text(output).css("border-color", tiny.toHexString());
-
-//     var filters = $("#filter-output").toggleClass("invisible", !tiny.ok);
-
-//     // filters.find(".lighten").css("background-color",
-//     //     tinycolor.lighten(tiny, 20).toHexString()
-//     // );
-//     // filters.find(".darken").css("background-color",
-//     //     tinycolor.darken(tiny, 20).toHexString()
-//     // );
-//     // filters.find(".saturate").css("background-color",
-//     //      tinycolor.saturate(tiny, 20).toHexString()
-//     //  );
-//     // filters.find(".desaturate").css("background-color",
-//     //      tinycolor.desaturate(tiny, 20).toHexString()
-//     //  );
-//     // filters.find(".greyscale").css("background-color",
-//     //      tinycolor.greyscale(tiny).toHexString()
-//     //  );
-
-//     var allColors = [];
-//     for (var i in tinycolor.names) {
-//             allColors.push(i);
-//     }
-
-//      var combines = $("#combine-output").toggleClass("invisible", !tiny.ok);
-
-//      var triad = tinycolor.triad(tiny);
-//      combines.find(".triad").html($.map(triad, function(e) {
-//          return '<span style="background:'+e.toHexString()+'"></span>'
-//      }).join(''));
-
-//      var tetrad = tinycolor.tetrad(tiny);
-//      combines.find(".tetrad").html($.map(tetrad, function(e) {
-//          return '<span style="background:'+e.toHexString()+'"></span>'
-//      }).join(''));
-
-//      var mono = tinycolor.monochromatic(tiny);
-//      combines.find(".mono").html($.map(mono, function(e) {
-//          return '<span style="background:'+e.toHexString()+'"></span>'
-//      }).join(''));
-
-//      var analogous = tinycolor.analogous(tiny);
-//      combines.find(".analogous").html($.map(analogous, function(e) {
-//          return '<span style="background:'+e.toHexString()+'"></span>'
-//      }).join(''));
-
-//      var sc = tinycolor.splitcomplement(tiny);
-//      combines.find(".sc").html($.map(sc, function(e) {
-//          return '<span style="background:'+e.toHexString()+'"></span>'
-//      }).join(''));
-// }
 
 function redraw_Pie(generatedColors){
-    $('#listoutput').val(generatedColors);
+
+    // $('#listoutput').val(generatedColors);
+    var colorBlocks = $.map(generatedColors, function(e) {return '<span style="background:'+e+'"></span>'}).join(' ');
+
+    console.log(colorBlocks);
+    $("#listoutput").append(colorBlocks);
+
     var colors = generatedColors,
       categories = ['Calories', 'Fat', 'Cholesterol', 'Sodium', 'Carbohydrates', 'Protein', 'Vitamins'],
       name = 'Nutritional Content',
@@ -188,15 +130,8 @@ function redraw_Pie(generatedColors){
 }
 
 function genColors(startingPoint, n) {
-    var n = 10;
-    var tiny = tinycolor(startingPoint);
-    //var analogous = tinycolor.analogous(tiny, 10, 10);
-    var analogous = tinycolor.analogous(tiny);
-     $.map(analogous, function(e) {
-         return e.toHexString()+','
-     }).join('');
-    console.log(analogous);
-    return analogous; //Returns a list of hex strings
+    var analogous = tinycolor.analogous(tinycolor(startingPoint), n, n);
+    return $.map(analogous, function(e) {return e.toHexString();}); //Returns a list of hex strings
 }
 
 $(document).ready(function(){
@@ -212,19 +147,24 @@ $(document).ready(function(){
             "rgb:\t" + tiny.toRgbString(),
             "hsl:\t" + tiny.toHslString(),
             "hsv:\t" + tiny.toHsvString(),
-  ].join("\n");
+  ].join('\n');
 
-    console.log(output);
-
-      $("#code-output").text(output).css("border-color", tiny.toHexString());
-
-  var tc = tinycolor("#FF6600").toHsl();
+  $("#code-output").text(output).css("background-color", tiny.toHexString());
 
   Raphael.colorwheel(
     $("#colorWheel")[0],300).color("#FF6600").onchange(
         function(c){
-          // tiny = tinycolor(c.hex);
-          redraw_Pie(genColors(c.hex));
+          tiny = tinycolor(c);
+          output = [
+            "hex:\t" + tiny.toHexString(),
+            "hex8:\t" + tiny.toHex8String(),
+            "rgb:\t" + tiny.toRgbString(),
+            "hsl:\t" + tiny.toHslString(),
+            "hsv:\t" + tiny.toHsvString(),
+          ].join('\n');
+          $("#code-output").text(output).css("background-color", tiny.toHexString());
+
+          redraw_Pie(genColors(c.hex, 10));
     });
 
 });
