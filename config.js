@@ -1,10 +1,8 @@
 
 function redraw_Pie(generatedColors){
 
-    // $('#listoutput').val(generatedColors);
-    var colorBlocks = $.map(generatedColors, function(e) {return '<span style="background:'+e+'"></span>'}).join(' ');
-
-    console.log(colorBlocks);
+    var colorBlocks = $.map(generatedColors, function(e) {return '<span style="background:'+e+'"></span>'}).join('');
+    $("#listoutput").empty();
     $("#listoutput").append(colorBlocks);
 
     var colors = generatedColors,
