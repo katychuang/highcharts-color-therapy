@@ -10,44 +10,233 @@
 
     <script src="lib/raphael-2.1.0-min.js" type="text/javascript"></script>
     <script src='lib/tinycolor.js' type='text/javascript'></script>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css">
+    <link href="css/simplegrid.css" rel="stylesheet">
     <style>
       body, h1 {
-        font-family: 'HelveticaNeue-Light', Arial, san-serif;
+        /*font-family: 'HelveticaNeue-Light', Arial, san-serif;*/
+        font-family: 'Raleway', sans-serif;
+      }
+      h1 {
+        font-weight: 200;
+        font-size: 42px;
       }
       #left {
         min-height:400px;
         padding-right: 10px;
       }
       #listoutput span { width: 20px; height: 20px; display:inline-block; margin: 0px; }
+
+      #viewport {
+        position: absolute;
+        width: 461px;
+        height: 600px;
+        overflow: hidden;
+        margin-top: -203px;
+        margin-left: 605px;
+      }
+      #viewport .smoke {
+        position: absolute;
+        width: 200px;
+        height: 250px;
+        background:url('https://github.com/downloads/Dhirajkumar/Demos/smoke-texture.png') no-repeat;
+        bottom: 150px;
+        margin-left:0px;
+      }
+.header {
+        background-image: url('lib/bg.jpg');
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-color: #000000;
+        color: #f6f6f6;
+        -moz-box-shadow: 0px 2px 9px #888;
+        -webkit-box-shadow: 0px 2px 9px #888;
+        box-shadow: 0px 2px 9px #888;
+        max-height: 420px;
+}
+
+.header a {
+        color: #f6f6f6;
+}
+
+.header p {
+        font-weight: 100;
+        font-size: 22px;
+        line-height: 32px;
+}
+
+.header span {
+        font-weight: 400;
+        font-style: italic;
+}
+
+.header-content {
+        padding-bottom: 20px;
+        margin-top: -20px;
+}
+
+.button {
+        background: #2799c6; /* Old browsers */
+        background: -moz-linear-gradient(top,  #2799c6 16%, #006599 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(16%,#2799c6), color-stop(100%,#006599)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #2799c6 16%,#006599 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #2799c6 16%,#006599 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #2799c6 16%,#006599 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #2799c6 16%,#006599 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2799c6', endColorstr='#006599',GradientType=0 ); /* IE6-9 */
+        border-radius: 3px;
+        padding: 5px;
+        border: none;
+        font-size: 18px;
+        color: #f6f6f6;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 200;
+        border: 1px solid #e5edf4;
+        margin-right: 20px;
+        width: 95px;
+        border: 1px solid #458EB8;
+        display: inline-block;
+        text-align: center;
+}
+
+.button:active {
+        background: #006599; /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwNjU5OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDQzN2EiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top,  #006599 0%, #00437a 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#006599), color-stop(100%,#00437a)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #006599 0%,#00437a 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #006599 0%,#00437a 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #006599 0%,#00437a 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #006599 0%,#00437a 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006599', endColorstr='#00437a',GradientType=0 ); /* IE6-8 */
+        border: 1px solid #002751;
+}
+
     </style>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1 class="page-header">Color Therapy</h1>
-        <p>Page made by <a href="http://github.com/katychuang">@katychuang</a><br/>
-          Select a color from the wheel.
-        </p>
-      </header>
-      <div class="row">
-      <div id="left" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div id="colorWheel"></div>
-        <div id="options">
-          <label id="one" labelfor="spliceN">Splices: </label> <input type="number" id="spliceN" value="10" />
+    <div class="header">
+      <div class="headerContent grid grid-pad">
+        <div class="col-1-2 header-content">
+          <h1>
+            Color Therapy
+          </h1>
+          <p>
+            Color Therapy was created for developers who need a <span>seamless</span> way to pick colors that go well together. Color Therapy currently is for <span>Highcharts</span> but can easily adapt to any svg chart. Questions can be direct to <a href="http://github.com/katychuang">@katychuang</a></p>
+                <a class="button gradient" href="https://github.com/katychuang/highcharts-color-therapy/zipball/master" title="Simple Grid Download">Download</a><a class="button gradient" href="https://github.com/katychuang/highcharts-color-therapy" title="Simple Grid Github">Github</a>
         </div>
-        <div id="output">
-          <pre id="code-output"></pre>
-          <div class="col-lg-10" id="listoutput"></div>
-        </div>
-      </div>
-
-      <div id="myChart" class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
+        <div id="viewport"></div>
       </div>
     </div>
-</body>
+
+
+    <div class="grid grid-pad">
+      <div class="col-1-2">
+         <div class="content">
+            <p>To begin, select a color below.</p>
+            <div id="colorWheel"></div>
+            <div id="options">
+              <label id="one" labelfor="spliceN">Splices: </label> <input type="number" id="spliceN" value="10" />
+            </div>
+            <div id="output">
+
+              <pre id="code-output"></pre>
+              <p>Resulting color schemes: </p>
+              <div id="listoutput"></div>
+            </div>
+         </div>
+      </div>
+      <div class="col-1-2">
+         <div class="content">
+             <div id="myChart"></div>
+         </div>
+      </div>
+  </div>
 
 <script src="colorwheel.js" type="text/javascript"></script>
 <script src="config.js" type="text/javascript"></script>
+<script src="http://cloud.github.com/downloads/Dhirajkumar/Demos/jquery-easing.min.js"></script>
+      <script type="text/javascript">
+          $(function () {
+              // if (!$.browser.msie) {
+              if ("a" === "a") {
+                  var a = 0;
+                  for (; a < 15; a += 1) {
+                      setTimeout(function b() {
+                          var a = Math.random() * 1e3 + 5e3,
+                              c = $("<div />", {
+                                  "class": "smoke",
+                                  css: {
+                                      opacity: 0,
+                                      left: Math.random() * 200 + 80
+                                  }
+                              });
+                          $(c).appendTo("#viewport");
+                          $.when($(c).animate({
+                              opacity: 1
+                          }, {
+                              duration: a / 4,
+                              easing: "linear",
+                              queue: false,
+                              complete: function () {
+                                  $(c).animate({
+                                      opacity: 0
+                                  }, {
+                                      duration: a / 3,
+                                      easing: "linear",
+                                      queue: false
+                                  })
+                              }
+                          }), $(c).animate({
+                              bottom: $("#viewport").height()
+                          }, {
+                              duration: a,
+                              easing: "linear",
+                              queue: false
+                          })).then(function () {
+                              $(c).remove();
+                              b()
+                          })
+                      }, Math.random() * 3e3)
+                  }
+              } else {
+                  "use strict";
+                  var a = 0;
+                  for (; a < 15; a += 1) {
+                      setTimeout(function b() {
+                          var a = Math.random() * 1e3 + 5e3,
+                              c = $("<div />", {
+                                  "class": "smoke",
+                                  css: {
+                                      left: Math.random() * 200 + 80
+                                  }
+                              });
+                          $(c).appendTo("#viewport");
+                          $.when($(c).animate({}, {
+                              duration: a / 4,
+                              easing: "linear",
+                              queue: false,
+                              complete: function () {
+                                  $(c).animate({}, {
+                                      duration: a / 3,
+                                      easing: "linear",
+                                      queue: false
+                                  })
+                              }
+                          }), $(c).animate({
+                              bottom: $("#viewport").height()
+                          }, {
+                              duration: a,
+                              easing: "linear",
+                              queue: false
+                          })).then(function () {
+                              $(c).remove();
+                              b()
+                          })
+                      }, Math.random() * 3e3)
+                  }
+              }
+          }())
+      </script>
 </html>
